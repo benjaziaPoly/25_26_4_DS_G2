@@ -1,7 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:projet/projet_e_commerce/data/list_produits.dart';
+import 'package:projet/projet_e_commerce/services/firebase_services_crud.dart';
 
 class MonMenu extends StatefulWidget {
   const MonMenu({super.key});
@@ -11,6 +15,8 @@ class MonMenu extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<MonMenu> {
+ 
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -58,6 +64,22 @@ class _MyWidgetState extends State<MonMenu> {
             title: Text("Profil"),
             onTap: () {
               Navigator.pushNamed(context, 'profile');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.dangerous),
+            title: Text("Exporter liste Produit "),
+            enabled: false,
+            onTap: () {
+              var fbc = FirebaseCrud();
+              fbc.saveData(AllProductData.Produits);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.sunny),
+            title: Text("Consulter Méteo "),
+            onTap: () {
+              Navigator.pushNamed(context, "meteo");
             },
           ),
           Divider(),
